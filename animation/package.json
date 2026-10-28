@@ -1,0 +1,16 @@
+{
+  "name": "fan-cad-to-product-animation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frame-accurate Three.js engineering animation of the hand-cranked FDM fan (CAD to finished product).",
+  "scripts": {
+    "serve": "node pipeline/serve.mjs",
+    "render": "node pipeline/04_render_frames.mjs"
+  },
+  "dependencies": {
+    "three": "0.169.0",
+    "@fontsource/barlow-condensed": "5.1.0",
+    "@fontsource/inter": "5.1.0",
+    "@fontsource/jetbrains-mono": "5.1.0"
+  }
+}

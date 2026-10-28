@@ -1,0 +1,196 @@
+{
+  "voice": "af_heart",
+  "speed": 0.95,
+  "lang": "en-us",
+  "duration": 180.0,
+  "stages": [
+    {
+      "id": "opening",
+      "label": "Opening",
+      "start": 0,
+      "end": 8
+    },
+    {
+      "id": "cad",
+      "label": "CAD Model Design",
+      "n": 1,
+      "start": 8,
+      "end": 42
+    },
+    {
+      "id": "stl",
+      "label": "STL Export",
+      "n": 2,
+      "start": 42,
+      "end": 60
+    },
+    {
+      "id": "slicing",
+      "label": "Slicing",
+      "n": 3,
+      "start": 60,
+      "end": 84
+    },
+    {
+      "id": "printing",
+      "label": "FDM Printing",
+      "n": 4,
+      "start": 84,
+      "end": 120
+    },
+    {
+      "id": "finishing",
+      "label": "Finishing",
+      "n": 5,
+      "start": 120,
+      "end": 142
+    },
+    {
+      "id": "assembly",
+      "label": "Assembly & Test",
+      "n": 6,
+      "start": 142,
+      "end": 172
+    },
+    {
+      "id": "closing",
+      "label": "Closing",
+      "start": 172,
+      "end": 180
+    }
+  ],
+  "lines": [
+    {
+      "id": "L01",
+      "start": 0.7,
+      "text": "A hand-cranked, gear-driven handheld fan: no motor, no battery, every part 3D printed."
+    },
+    {
+      "id": "L02",
+      "start": 8.8,
+      "text": "Stage one: the CAD model, the team's own assembly."
+    },
+    {
+      "id": "L03",
+      "start": 13.6,
+      "text": "Exploded along its shafts: two shell halves, a crank, three gears, two shafts, three axle pins, a propeller."
+    },
+    {
+      "id": "L04",
+      "start": 21.6,
+      "text": "The crank's fifty-four-tooth gear drives a twelve-tooth pinion on a compound gear, whose large gear drives the propeller's pinion."
+    },
+    {
+      "id": "L05",
+      "start": 30.8,
+      "text": "Two speed-up stages: in theory, about twenty propeller turns per crank turn."
+    },
+    {
+      "id": "L06",
+      "start": 36.0,
+      "text": "CAD is where fit, alignment, centre distance and clearance are checked, before printing."
+    },
+    {
+      "id": "L07",
+      "start": 42.8,
+      "text": "Stage two: STL export. Each part gets its own file, as each is printed separately.",
+      "say": "Stage two: S T L export. Each part gets its own file, as each is printed separately."
+    },
+    {
+      "id": "L08",
+      "start": 49.2,
+      "text": "The exact CAD surfaces become a mesh of flat triangles."
+    },
+    {
+      "id": "L09",
+      "start": 53.6,
+      "text": "The mesh is checked: closed, normals outward, scale in millimetres; then oriented for printing."
+    },
+    {
+      "id": "L10",
+      "start": 60.8,
+      "text": "Stage three: slicing. Parts lie flat on the plate: shells open side up, gears flat, so each tooth forms within every layer."
+    },
+    {
+      "id": "L11",
+      "start": 70.4,
+      "text": "The slicer cuts each part into thin layers and plans every toolpath: walls, then infill."
+    },
+    {
+      "id": "L12",
+      "start": 77.2,
+      "text": "The report suggests finer layers and extra walls for gears; supports go only where an overhang needs them."
+    },
+    {
+      "id": "L13",
+      "start": 84.8,
+      "text": "Stage four: FDM printing. Filament is melted in a heated nozzle and laid along the planned path.",
+      "say": "Stage four: F D M printing. Filament is melted in a heated nozzle and laid along the planned path."
+    },
+    {
+      "id": "L14",
+      "start": 92.6,
+      "text": "The first layer bonds to the bed; the nozzle then rises one layer, and each layer fuses to the last."
+    },
+    {
+      "id": "L15",
+      "start": 101.2,
+      "text": "Nothing is cut away: the gear is built up, teeth first, then its pinion."
+    },
+    {
+      "id": "L16",
+      "start": 108.8,
+      "text": "Shell walls grow the same way, leaving fine layer lines."
+    },
+    {
+      "id": "L17",
+      "start": 114.4,
+      "text": "When the print ends, the bed cools before parts are removed."
+    },
+    {
+      "id": "L18",
+      "start": 120.8,
+      "text": "Stage five: finishing. A printed part is not yet a mechanism."
+    },
+    {
+      "id": "L19",
+      "start": 125.6,
+      "text": "Brims and strings are trimmed; gear flanks and shafts are sanded to remove layer ridges."
+    },
+    {
+      "id": "L20",
+      "start": 132.0,
+      "text": "Pin holes are reamed so shafts turn freely, and the gears are lubricated."
+    },
+    {
+      "id": "L21",
+      "start": 137.0,
+      "text": "Balanced on its shaft, the propeller should stop at random angles."
+    },
+    {
+      "id": "L22",
+      "start": 142.8,
+      "text": "Stage six: assembly and test. The crank gear, compound gear and propeller pinion go into the shell, meshing."
+    },
+    {
+      "id": "L23",
+      "start": 151.0,
+      "text": "The second shell closes the train; the crank handle, propeller and cap go on last."
+    },
+    {
+      "id": "L24",
+      "start": 157.6,
+      "text": "By design, the crank drives both gear stages, so the propeller spins far faster than the hand."
+    },
+    {
+      "id": "L25",
+      "start": 164.2,
+      "text": "The test plan: fit, free rotation, speed ratio, airflow, endurance and balance. Results are still to be measured."
+    },
+    {
+      "id": "L26",
+      "start": 172.6,
+      "text": "From CAD model to finished product: one digital design, six stages, no tooling."
+    }
+  ]
+}

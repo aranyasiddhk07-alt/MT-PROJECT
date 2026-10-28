@@ -1,0 +1,28 @@
+L01  WER  0.0%  | A hand cranked, gear-driven handheld fan. No motor, no battery. Every part 3D printed.
+L02  WER 10.0%  | Stage 1, the CAD model the team's own assembly.
+L03  WER  0.0%  | Exploded along its shafts, two shell halves, a crank, three gears, two shafts, three axle pins, a propeller.
+L04  WER  0.0%  | The crank's 54 tooth gear drives a 12 tooth pinion on a compound gear, whose large gear drives the propeller's pinion.
+L05  WER  0.0%  | Two speed up stages. In theory, about 20 propeller turns per crank turn.
+L06  WER  0.0%  | CAD is where fit, alignment, center distance and clearance are checked before printing.
+L07  WER  0.0%  | Stage 2, STL export. Each part gets its own file as each is printed separately.
+L08  WER  0.0%  | The exact CAD surfaces become a mesh of flat triangles.
+L09  WER  0.0%  | The mesh is checked, closed normals outward, scale in millimeters, then oriented for printing.
+L10  WER  9.1%  | Stage 3, slicing. Parts lie flat on the plate. Shell's open side up gears flat so each tooth forms within every layer.
+L11  WER 20.0%  | The slicer cuts each part into thin layers and plans every tool path. Walls, then infill. [BUZZER]
+L12  WER  0.0%  | The report suggests finer layers and extra walls for gears. Flat parts need little support.
+L13  WER  5.9%  | Stage 4, FDM printing. Filament is melted in a heated nozzle and laid along the planned path.
+L14  WER  5.0%  | The first layer bonds to the bed. The nozzle then rises one layer, and each layer fuses to the last. [BUZZER]
+L15  WER  0.0%  | Nothing is cut away. The gear is built up teeth first then its pinion.
+L16  WER  0.0%  | Shell walls grow the same way, leaving fine layer lines.
+L17  WER  0.0%  | When the print ends, the bed cools before parts are removed.
+L18  WER  9.1%  | Stage 5, finishing. A printed part is not yet a mechanism.
+L19  WER  0.0%  | Brims and strings are trimmed. Gear flanks and shafts are sanded to remove layer ridges.
+L20  WER  0.0%  | Pin holes are reamed so shafts turn freely, and the gears are lubricated.
+L21  WER  0.0%  | Balanced on its shaft, the propeller should stop at random angles.
+L22  WER  0.0%  | Stage 6, assembly and test. The crank gear, compound gear and propeller pinion go into the shell meshing.
+L23  WER  0.0%  | The second shell closes the train. The crank handle, propeller and cap go on last.
+L24  WER  5.9%  | By design, the crank drives both gear stages, so the propeller spins far faster than the hand. [buzzer]
+L25  WER 16.7%  | The test plan, fit, free rotation, speed ratio, air flow, endurance and balance. Results are still to be measured. [buzzer]
+L26  WER  0.0%  | From CAD model to finished product, one digital design, six stages, no tooling.
+
+OVERALL WER 3.35% (13 word errors / 388 words)

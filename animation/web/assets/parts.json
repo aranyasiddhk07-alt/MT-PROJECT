@@ -1,0 +1,284 @@
+[
+ {
+  "id": "shell_side1",
+  "name": "Shell half (side 1, far side)",
+  "axis": null,
+  "group": "housing",
+  "cad_root": "casing side 1",
+  "volume_mm3": 45885.3,
+  "bbox_min": [
+   8.0,
+   -65.0,
+   -35.0
+  ],
+  "bbox_max": [
+   24.0,
+   60.0,
+   35.0
+  ],
+  "triangles": 13392,
+  "edge_segments": 1052,
+  "watertight": true
+ },
+ {
+  "id": "gear_input",
+  "name": "Large spur gear 54T (crank axis)",
+  "axis": [
+   -27,
+   0
+  ],
+  "group": "crank",
+  "cad_root": "compound gear assembly",
+  "volume_mm3": 11248.7,
+  "bbox_min": [
+   0.0,
+   -54.985,
+   -28.0
+  ],
+  "bbox_max": [
+   5.0,
+   0.985,
+   28.0
+  ],
+  "triangles": 3056,
+  "edge_segments": 960,
+  "watertight": true
+ },
+ {
+  "id": "compound_gear",
+  "name": "Compound gear 12T + 54T",
+  "axis": [
+   6,
+   0
+  ],
+  "group": "idler",
+  "cad_root": "compound gear assembly",
+  "volume_mm3": 12063.9,
+  "bbox_min": [
+   0.0,
+   -21.971,
+   -27.999
+  ],
+  "bbox_max": [
+   13.0,
+   33.971,
+   27.999
+  ],
+  "triangles": 5612,
+  "edge_segments": 1344,
+  "watertight": true
+ },
+ {
+  "id": "pin_idler_b",
+  "name": "Axle pin (idler, side 1)",
+  "axis": [
+   6,
+   0
+  ],
+  "group": "pins",
+  "cad_root": "compound gear assembly",
+  "volume_mm3": 106.0,
+  "bbox_min": [
+   13.0,
+   3.0,
+   -2.999
+  ],
+  "bbox_max": [
+   18.0,
+   9.0,
+   2.999
+  ],
+  "triangles": 848,
+  "edge_segments": 100,
+  "watertight": true
+ },
+ {
+  "id": "crank_shaft",
+  "name": "Crank shaft",
+  "axis": [
+   -27,
+   0
+  ],
+  "group": "crank",
+  "cad_root": "compound gear assembly",
+  "volume_mm3": 372.7,
+  "bbox_min": [
+   -2.0,
+   -31.0,
+   -3.998
+  ],
+  "bbox_max": [
+   18.0,
+   -23.0,
+   3.998
+  ],
+  "triangles": 2328,
+  "edge_segments": 296,
+  "watertight": true
+ },
+ {
+  "id": "pin_idler_a",
+  "name": "Axle pin (idler, side 2)",
+  "axis": [
+   6,
+   0
+  ],
+  "group": "pins",
+  "cad_root": "compound gear assembly",
+  "volume_mm3": 42.4,
+  "bbox_min": [
+   -2.0,
+   3.0,
+   -2.999
+  ],
+  "bbox_max": [
+   0.0,
+   9.0,
+   2.999
+  ],
+  "triangles": 848,
+  "edge_segments": 100,
+  "watertight": true
+ },
+ {
+  "id": "pin_prop",
+  "name": "Axle pin (propeller axis)",
+  "axis": [
+   39,
+   0
+  ],
+  "group": "pins",
+  "cad_root": "compound gear assembly",
+  "volume_mm3": 42.4,
+  "bbox_min": [
+   16.0,
+   36.0,
+   -2.999
+  ],
+  "bbox_max": [
+   18.0,
+   42.0,
+   2.999
+  ],
+  "triangles": 848,
+  "edge_segments": 100,
+  "watertight": true
+ },
+ {
+  "id": "pinion_output",
+  "name": "Pinion 12T with hub",
+  "axis": [
+   39,
+   0
+  ],
+  "group": "output",
+  "cad_root": "compound gear assembly",
+  "volume_mm3": 439.9,
+  "bbox_min": [
+   -2.0,
+   32.0,
+   -7.0
+  ],
+  "bbox_max": [
+   16.0,
+   46.0,
+   7.0
+  ],
+  "triangles": 3278,
+  "edge_segments": 554,
+  "watertight": true
+ },
+ {
+  "id": "shell_side2",
+  "name": "Shell half (side 2, crank side)",
+  "axis": null,
+  "group": "housing",
+  "cad_root": "casing side 2",
+  "volume_mm3": 45938.6,
+  "bbox_min": [
+   -10.0,
+   -65.0,
+   -35.0
+  ],
+  "bbox_max": [
+   8.0,
+   60.0,
+   35.0
+  ],
+  "triangles": 13638,
+  "edge_segments": 1168,
+  "watertight": true
+ },
+ {
+  "id": "propeller",
+  "name": "Propeller",
+  "axis": [
+   39,
+   0
+  ],
+  "group": "output",
+  "cad_root": "propeller",
+  "volume_mm3": 4319.2,
+  "bbox_min": [
+   -22.0,
+   10.986,
+   -39.925
+  ],
+  "bbox_max": [
+   -10.0,
+   80.922,
+   32.953
+  ],
+  "triangles": 53606,
+  "edge_segments": 787,
+  "watertight": true
+ },
+ {
+  "id": "prop_shaft",
+  "name": "Propeller shaft",
+  "axis": [
+   39,
+   0
+  ],
+  "group": "output",
+  "cad_root": "shaft",
+  "volume_mm3": 371.6,
+  "bbox_min": [
+   -22.0,
+   36.5,
+   -2.5
+  ],
+  "bbox_max": [
+   2.0,
+   41.5,
+   2.5
+  ],
+  "triangles": 300,
+  "edge_segments": 72,
+  "watertight": true
+ },
+ {
+  "id": "crank_handle",
+  "name": "Crank handle",
+  "axis": [
+   -27,
+   0
+  ],
+  "group": "crank",
+  "cad_root": "handle",
+  "volume_mm3": 1119.2,
+  "bbox_min": [
+   -21.0,
+   -32.0,
+   -4.998
+  ],
+  "bbox_max": [
+   0.0,
+   -22.0,
+   22.499
+  ],
+  "triangles": 1580,
+  "edge_segments": 258,
+  "watertight": true
+ }
+]

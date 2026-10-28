@@ -1,0 +1,378 @@
+{
+ "housing": [
+  {
+   "id": "shell_side1",
+   "profile": "shell",
+   "layer": 0.2,
+   "walls": 3,
+   "infill": 0.2,
+   "layers": 80,
+   "height": 16.0,
+   "paths": 12832,
+   "extrusion_mm": 313689.8,
+   "cad_to_print": [
+    [
+     -0.0,
+     -0.0,
+     1.0,
+     -40.0
+    ],
+    [
+     -0.0,
+     1.0,
+     -0.0,
+     2.5
+    ],
+    [
+     -1.0,
+     -0.0,
+     -0.0,
+     24.0
+    ]
+   ]
+  },
+  {
+   "id": "shell_side2",
+   "profile": "shell",
+   "layer": 0.2,
+   "walls": 3,
+   "infill": 0.2,
+   "layers": 90,
+   "height": 18.0,
+   "paths": 13682,
+   "extrusion_mm": 348210.2,
+   "cad_to_print": [
+    [
+     -0.0,
+     -0.0,
+     -1.0,
+     40.0
+    ],
+    [
+     0.0,
+     1.0,
+     -0.0,
+     2.5
+    ],
+    [
+     1.0,
+     0.0,
+     -0.0,
+     10.0
+    ]
+   ]
+  },
+  {
+   "id": "crank_handle",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 62,
+   "height": 10.0,
+   "paths": 1537,
+   "extrusion_mm": 15650.0,
+   "cad_to_print": [
+    [
+     1.0,
+     -0.0,
+     -0.0,
+     102.5
+    ],
+    [
+     -0.0,
+     0.0,
+     -1.0,
+     -71.249437
+    ],
+    [
+     0.0,
+     1.0,
+     -0.0,
+     31.999905
+    ]
+   ]
+  }
+ ],
+ "mechanism": [
+  {
+   "id": "gear_input",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 31,
+   "height": 5.0,
+   "paths": 2790,
+   "extrusion_mm": 114505.8,
+   "cad_to_print": [
+    [
+     -0.0,
+     0.0,
+     -1.0,
+     -62.0
+    ],
+    [
+     0.0,
+     1.0,
+     -0.0,
+     81.999999
+    ],
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  {
+   "id": "compound_gear",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 81,
+   "height": 13.0,
+   "paths": 4048,
+   "extrusion_mm": 126220.8,
+   "cad_to_print": [
+    [
+     -0.0,
+     -0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     49.000001
+    ],
+    [
+     -1.0,
+     -0.0,
+     0.0,
+     13.0
+    ]
+   ]
+  },
+  {
+   "id": "pinion_output",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 113,
+   "height": 18.0,
+   "paths": 1248,
+   "extrusion_mm": 17208.7,
+   "cad_to_print": [
+    [
+     0.0,
+     -0.0,
+     1.0,
+     48.0
+    ],
+    [
+     0.0,
+     1.0,
+     -0.0,
+     33.0
+    ],
+    [
+     -1.0,
+     -0.0,
+     -0.0,
+     16.0
+    ]
+   ]
+  },
+  {
+   "id": "crank_shaft",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 125,
+   "height": 20.0,
+   "paths": 467,
+   "extrusion_mm": 6343.5,
+   "cad_to_print": [
+    [
+     -0.0,
+     -0.0,
+     -1.0,
+     72.0
+    ],
+    [
+     -0.0,
+     1.0,
+     0.0,
+     99.000004
+    ],
+    [
+     1.0,
+     -0.0,
+     0.0,
+     2.0
+    ]
+   ]
+  },
+  {
+   "id": "prop_shaft",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 150,
+   "height": 24.0,
+   "paths": 450,
+   "extrusion_mm": 4910.8,
+   "cad_to_print": [
+    [
+     -0.0,
+     0.0,
+     -1.0,
+     92.000021
+    ],
+    [
+     0.0,
+     1.0,
+     -0.0,
+     32.999979
+    ],
+    [
+     1.0,
+     -0.0,
+     -0.0,
+     22.0
+    ]
+   ]
+  },
+  {
+   "id": "pin_idler_a",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 12,
+   "height": 2.0,
+   "paths": 48,
+   "extrusion_mm": 677.4,
+   "cad_to_print": [
+    [
+     -0.0,
+     0.0,
+     -1.0,
+     51.999999
+    ],
+    [
+     -0.0,
+     1.0,
+     0.0,
+     35.999998
+    ],
+    [
+     1.0,
+     0.0,
+     -0.0,
+     2.0
+    ]
+   ]
+  },
+  {
+   "id": "pin_idler_b",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 31,
+   "height": 5.0,
+   "paths": 124,
+   "extrusion_mm": 1750.0,
+   "cad_to_print": [
+    [
+     -0.0,
+     -0.0,
+     -1.0,
+     69.999975
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     35.999986
+    ],
+    [
+     1.0,
+     0.0,
+     -0.0,
+     -13.0
+    ]
+   ]
+  },
+  {
+   "id": "pin_prop",
+   "profile": "gear",
+   "layer": 0.16,
+   "walls": 4,
+   "infill": 0.5,
+   "layers": 12,
+   "height": 2.0,
+   "paths": 48,
+   "extrusion_mm": 677.4,
+   "cad_to_print": [
+    [
+     -0.0,
+     -0.0,
+     -1.0,
+     87.999979
+    ],
+    [
+     -0.0,
+     1.0,
+     0.0,
+     3.000019
+    ],
+    [
+     1.0,
+     0.0,
+     -0.0,
+     -16.0
+    ]
+   ]
+  },
+  {
+   "id": "propeller",
+   "profile": "prop",
+   "layer": 0.12,
+   "walls": 3,
+   "infill": 0.3,
+   "layers": 100,
+   "height": 12.0,
+   "paths": 5549,
+   "extrusion_mm": 60844.1,
+   "cad_to_print": [
+    [
+     0.0,
+     -0.0,
+     -1.0,
+     -43.48597
+    ],
+    [
+     -0.0,
+     1.0,
+     0.0,
+     -95.953985
+    ],
+    [
+     1.0,
+     0.0,
+     0.0,
+     22.0
+    ]
+   ]
+  }
+ ]
+}

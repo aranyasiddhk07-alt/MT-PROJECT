@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hand-Cranked Fan · Interactive Companion</title>
+<style>
+:root { --bg: #0b1016; --panel: #111922; --ink: #e9eff6; --ink2: #a9b8c8; --cyan: #3cc8ff; --amber: #ffad33; --line: rgba(160,205,240,.2); }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+#app { display: grid; grid-template-columns: 1fr 380px; height: 100vh; }
+#view { position: relative; min-height: 50vh; }
+canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+aside { background: var(--panel); border-left: 1px solid var(--line); overflow-y: auto; padding: 18px; }
+h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: .5px; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink2); margin: 20px 0 8px; }
+.sub { color: var(--ink2); font-size: 13px; }
+button { font: inherit; color: var(--ink); background: #18222d; border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+button.on { border-color: var(--cyan); color: var(--cyan); }
+.parts button, .stages button { display: block; width: 100%; text-align: left; margin: 4px 0; }
+.info { background: #0d141b; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; margin-top: 8px; font-size: 14px; }
+.info b { color: var(--cyan); }
+.ctl { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+input[type=range] { width: 100%; }
+.tag { position: absolute; left: 12px; bottom: 12px; color: var(--ink2); font-size: 12px; background: rgba(0,0,0,.4); padding: 4px 8px; border-radius: 4px; }
+@media (max-width: 800px) { #app { grid-template-columns: 1fr; grid-template-rows: 55vh auto; } aside { border-left: none; border-top: 1px solid var(--line); } }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="view"><canvas id="c"></canvas><div class="tag">Geometry: fan_A.1.igs (actual CAD) · drag to rotate · wheel to zoom</div></div>
+  <aside>
+    <h1>Hand-cranked FDM fan</h1>
+    <div class="sub">CAD model → STL → slicing → FDM printing → finishing → assembly &amp; test</div>
+    <h2>View</h2>
+    <label class="sub">Explode along the shaft axis</label>
+    <input id="ex" type="range" min="0" max="1" step="0.01" value="0">
+    <div class="ctl"><button id="spin">Turn the crank</button><button id="xray">X-ray shells</button></div>
+    <h2>Components (click)</h2>
+    <div class="parts" id="parts"></div>
+    <div class="info" id="pinfo">Select a component.</div>
+    <h2>Six stages</h2>
+    <div class="stages" id="stages"></div>
+    <div class="info" id="sinfo">Select a stage.</div>
+  </aside>
+</div>
+<script type="text/plain" id="three-src">/*THREE*/</script>
+<script type="application/json" id="parts-data">/*PARTS*/</script>
+<script type="module">
+const threeURL = URL.createObjectURL(new Blob([document.getElementById('three-src').textContent], { type: 'text/javascript' }));
+const THREE = await import(threeURL);
+const DATA = JSON.parse(document.getElementById('parts-data').textContent);
+const INFO = {
+  shell_side1: ['Front shell half', 'Deeper cup (X 8–24 mm). Holds the gear train; three internal bearing bosses. Printed flat, open side up.'],
+  shell_side2: ['Back shell half', 'Closes the body; the crank and propeller shafts pass through it. Its two outer bosses stand 2 mm proud, so printed open side up its face needs a thin support.'],
+  gear_input: ['Large spur gear · 54 T', 'On the crank axis. Module 1 mm, OD 56 mm (measured). First speed-up stage.'],
+  crank_shaft: ['Crank shaft', 'Carries the 54 T gear; the handle spigot fits into it from outside.'],
+  compound_gear: ['Compound gear · 12 T + 54 T', 'Intermediate axis, not listed in the README. Its 12 T pinion meshes with the input gear; its 54 T gear drives the propeller pinion.'],
+  pinion_output: ['Pinion · 12 T with hub', 'Propeller axis. Its hub takes the cross-section propeller shaft.'],
+  prop_shaft: ['Propeller shaft', '"+" cross-section, 24 mm long: transmits torque to the propeller.'],
+  pin_idler_a: ['Axle pin', 'Ø6 mm pin seated in a shell boss (3 pins in the CAD).'],
+  pin_idler_b: ['Axle pin', 'Ø6 mm pin seated in a shell boss (3 pins in the CAD).'],
+  pin_prop: ['Axle pin', 'Ø6 mm pin seated in a shell boss (3 pins in the CAD).'],
+  crank_handle: ['Crank handle', 'Input. Arm reach 22.5 mm from the axis.'],
+  propeller: ['Propeller', 'Two blades, Ø85 mm span, hub Ø20 mm with a cross bore; 6.7 mm clear of the shell face.'],
+};
+const DX = { shell_side1: 70, shell_side2: -55, gear_input: 0, crank_shaft: -20, compound_gear: 12, pinion_output: 24, prop_shaft: -92, pin_idler_a: -26, pin_idler_b: 44, pin_prop: 44, crank_handle: -92, propeller: -128 };
+const AXIS = { gear_input: -27, crank_shaft: -27, crank_handle: -27, compound_gear: 6, pinion_output: 39, prop_shaft: 39, propeller: 39 };
+const STAGES = [
+  ['1 · CAD model', 'Twelve bodies in the IGES assembly. Two 54:12 stages give a theoretical 20.25 : 1 speed-up. Centre distances 33.0 mm = m(z₁+z₂)/2.'],
+  ['2 · STL export', 'One STL per part. The exact surfaces become triangles; each mesh is checked for holes, outward normals and millimetre scale, then oriented.'],
+  ['3 · Slicing', 'Parts flat on 220 × 220 mm plates. The slicer cuts layers and plans walls, infill and any supports. The report\'s values (0.12–0.20 mm layers, 3–4 walls) are assumed starting points.'],
+  ['4 · FDM printing', 'Filament is melted in a heated nozzle and laid along the path; each layer fuses to the one below. Printer and filament are not specified in the project files.'],
+  ['5 · Finishing', 'Trim brims and strings, sand gear flanks and shafts, ream pin holes, lubricate, balance the propeller (report §5.3).'],
+  ['6 · Assembly & test', 'Pins, gears and pinion into the front shell; close the back shell; fit handle, propeller shaft, propeller and cap. Test plan: fit, free rotation, speed ratio, airflow, endurance, balance. No measured results yet.'],
+];
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x0b1016);
+scene.add(new THREE.HemisphereLight(0xdfe9f5, 0x1a1f26, 0.9));
+const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(-200, 260, 220); scene.add(key);
+const rim = new THREE.DirectionalLight(0x9fd8ff, 1.2); rim.position.set(220, 140, -260); scene.add(rim);
+const camera = new THREE.PerspectiveCamera(30, 1, 1, 5000);
+const root = new THREE.Group(); scene.add(root);
+const parts = {};
+const dec = (b64, T) => { const s = atob(b64), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return new T(u.buffer); };
+for (const [id, d] of Object.entries(DATA)) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(dec(d.pos, Float32Array), 3));
+  g.setAttribute('normal', new THREE.BufferAttribute(dec(d.nrm, Float32Array), 3));
+  g.setIndex(new THREE.BufferAttribute(dec(d.idx, Uint32Array), 1));
+  const eg = new THREE.BufferGeometry(); eg.setAttribute('position', new THREE.BufferAttribute(dec(d.edges, Float32Array), 3));
+  const mat = new THREE.MeshStandardMaterial({ color: id.startsWith('shell') ? 0xd9dde2 : 0xd3ccc1, roughness: 0.45, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
+  const mesh = new THREE.Mesh(g, mat); mesh.userData.id = id;
+  const lines = new THREE.LineSegments(eg, new THREE.LineBasicMaterial({ color: 0x10151b, transparent: true, opacity: 0.8 }));
+  const ay = AXIS[id] ?? 0;
+  const top = new THREE.Group(), piv = new THREE.Group(), body = new THREE.Group();
+  piv.position.y = ay; body.position.y = -ay; body.add(mesh, lines); piv.add(body); top.add(piv); root.add(top);
+  parts[id] = { top, piv, mesh, mat, lines };
+}
+let az = 2.3, el = 0.25, dist = 520, ex = 0, spin = false, xray = false, sel = null, theta = 0;
+function resize() { const r = canvas.parentElement.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+let drag = null;
+canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY, moved: false }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', (e) => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true; az -= dx * 0.008; el = Math.max(-1.2, Math.min(1.3, el + dy * 0.006)); drag.x = e.clientX; drag.y = e.clientY; });
+canvas.addEventListener('pointerup', (e) => { if (drag && !drag.moved) pick(e); drag = null; });
+canvas.addEventListener('wheel', (e) => { e.preventDefault(); dist = Math.max(160, Math.min(1400, dist * (1 + e.deltaY * 0.001))); }, { passive: false });
+const ray = new THREE.Raycaster();
+function pick(e) {
+  const r = canvas.getBoundingClientRect();
+  ray.setFromCamera(new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), camera);
+  const hit = ray.intersectObjects(Object.values(parts).map((p) => p.mesh).filter((m) => m.material.opacity > 0.3))[0];
+  if (hit) select(hit.object.userData.id);
+}
+function select(id) {
+  sel = id;
+  document.querySelectorAll('#parts button').forEach((b) => b.classList.toggle('on', b.dataset.id === id));
+  document.getElementById('pinfo').innerHTML = `<b>${INFO[id][0]}</b><br>${INFO[id][1]}`;
+}
+const pl = document.getElementById('parts');
+for (const id of Object.keys(DATA)) { const b = document.createElement('button'); b.textContent = INFO[id][0]; b.dataset.id = id; b.onclick = () => select(id); pl.appendChild(b); }
+const sl = document.getElementById('stages');
+STAGES.forEach(([n, txt], i) => { const b = document.createElement('button'); b.textContent = n; b.onclick = () => { document.querySelectorAll('#stages button').forEach((x, j) => x.classList.toggle('on', i === j)); document.getElementById('sinfo').textContent = txt; }; sl.appendChild(b); });
+document.getElementById('ex').oninput = (e) => { ex = +e.target.value; };
+document.getElementById('spin').onclick = (e) => { spin = !spin; e.target.classList.toggle('on', spin); };
+document.getElementById('xray').onclick = (e) => { xray = !xray; e.target.classList.toggle('on', xray); };
+let last = performance.now();
+renderer.setAnimationLoop((now) => {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  if (spin) theta += dt * Math.PI * 2 * 0.15;
+  for (const [id, p] of Object.entries(parts)) {
+    p.top.position.x = DX[id] * ex;
+    const ay = AXIS[id];
+    p.piv.rotation.x = ay === -27 ? theta : ay === 6 ? -theta * 4.5 : ay === 39 ? theta * 20.25 : 0;
+    const ghost = xray && id.startsWith('shell');
+    p.mat.transparent = ghost; p.mat.opacity = ghost ? 0.12 : 1; p.mat.depthWrite = !ghost;
+    p.mat.emissive.setHex(id === sel ? 0x2fb8ff : 0); p.mat.emissiveIntensity = id === sel ? 0.45 : 0;
+  }
+  const tx = -40 * ex;
+  camera.position.set(tx + dist * Math.cos(az) * Math.cos(el), 6 + dist * Math.sin(el), dist * Math.sin(az) * Math.cos(el));
+  camera.lookAt(tx, 6, 0);
+  renderer.render(scene, camera);
+});
+</script>
+</body>
+</html>
